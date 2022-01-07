@@ -6,10 +6,3 @@ out/
 application-prod.yaml
 
 target/
-
-### Linux ###
-tmp/
-*.tmp
-*.bak
-*.swp
-/bin/
