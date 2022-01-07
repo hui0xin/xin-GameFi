@@ -1,0 +1,53 @@
+server:
+  port: 8991
+
+# database HikariCP相关配置
+spring:
+  datasource:
+    url: jdbc:mysql://101.201.46.114:3306/ido_server?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: crypto_rw
+    password: crypto_rw_password
+
+---
+## redis config
+spring:
+  redis:
+    # Redis默认情况下有16个分片，这里配置具体使用的分片
+    database: 0
+    host: 101.201.46.114
+    port: 6379
+    password: 123456
+
+## 日志配置
+logging:
+  # 日志级别
+  logLevel: INFO
+  # 日志保留天数，默认10天
+  maxHistory: 5
+
+starcoin:
+  client:
+    url: 60.205.3.84
+    chainId: 1
+
+## ------------------------------业务相关配置写到下面-------------------------
+gamefi:
+  common:
+    url: https://main-seed.starcoin.org
+    chain-id: 1
+  aww:
+    common:
+      contract-address: "0x16a8bf4d0c3718518d81f132801e4aaa"
+    websocket:
+      websocket-host: 60.205.3.84
+      websocket-port: 8970
+    content:
+      aww-module: "AWW"
+      arm-module: "ARM"
+      aww-game-module: "AWWGame"
+      market-module: "ARMMarket"
+      scripts-module: "AWWScripts"
+      nft-name: "aww arm"
+      title-page-image: "https://test.kikoswap.com/v1/nft/image/group/1"
+      description: "aww arms"
+      image-info-api: "https://test.kikoswap.com/v1/nft/image/info/"

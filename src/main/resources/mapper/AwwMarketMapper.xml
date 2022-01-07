@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bixin.gameFi.aww.core.mapper.AwwMarketMapper">
+  <resultMap id="BaseResultMap" type="com.bixin.gameFi.aww.bean.DO.AwwMarket">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="chain_id" jdbcType="BIGINT" property="chainId" />
+    <result column="aww_id" jdbcType="BIGINT" property="awwId" />
+    <result column="aww_name" jdbcType="VARCHAR" property="awwName" />
+    <result column="owner" jdbcType="VARCHAR" property="owner" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="rarity" jdbcType="INTEGER" property="rarity" />
+    <result column="sell_price" jdbcType="DECIMAL" property="sellPrice" />
+    <result column="stamina" jdbcType="INTEGER" property="stamina" />
+    <result column="used_stamina" jdbcType="INTEGER" property="usedStamina" />
+    <result column="win_rate_bonus" jdbcType="INTEGER" property="winRateBonus" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+  </resultMap>
+  <sql id="DDL_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_DDL_Where_Clause">
+    <where>
+      <foreach collection="DDL.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, chain_id, aww_id, aww_name, owner, address, rarity, sell_price, stamina, used_stamina, 
+    win_rate_bonus, icon, create_time, update_time
+  </sql>
+  <select id="selectByDDL" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwMarketDDL" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aww_market
+    <if test="_parameter != null">
+      <include refid="DDL_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from aww_market
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from aww_market
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByDDL" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwMarketDDL">
+    delete from aww_market
+    <if test="_parameter != null">
+      <include refid="DDL_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bixin.gameFi.aww.bean.DO.AwwMarket">
+    insert into aww_market (id, chain_id, aww_id,
+      aww_name, owner, address,
+      rarity, sell_price, stamina,
+      used_stamina, win_rate_bonus, icon,
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{chainId,jdbcType=BIGINT}, #{awwId,jdbcType=BIGINT},
+      #{awwName,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+      #{rarity,jdbcType=INTEGER}, #{sellPrice,jdbcType=DECIMAL}, #{stamina,jdbcType=INTEGER},
+      #{usedStamina,jdbcType=INTEGER}, #{winRateBonus,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR},
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bixin.gameFi.aww.bean.DO.AwwMarket">
+    insert into aww_market
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="chainId != null">
+        chain_id,
+      </if>
+      <if test="awwId != null">
+        aww_id,
+      </if>
+      <if test="awwName != null">
+        aww_name,
+      </if>
+      <if test="owner != null">
+        owner,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="rarity != null">
+        rarity,
+      </if>
+      <if test="sellPrice != null">
+        sell_price,
+      </if>
+      <if test="stamina != null">
+        stamina,
+      </if>
+      <if test="usedStamina != null">
+        used_stamina,
+      </if>
+      <if test="winRateBonus != null">
+        win_rate_bonus,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="chainId != null">
+        #{chainId,jdbcType=BIGINT},
+      </if>
+      <if test="awwId != null">
+        #{awwId,jdbcType=BIGINT},
+      </if>
+      <if test="awwName != null">
+        #{awwName,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="rarity != null">
+        #{rarity,jdbcType=INTEGER},
+      </if>
+      <if test="sellPrice != null">
+        #{sellPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stamina != null">
+        #{stamina,jdbcType=INTEGER},
+      </if>
+      <if test="usedStamina != null">
+        #{usedStamina,jdbcType=INTEGER},
+      </if>
+      <if test="winRateBonus != null">
+        #{winRateBonus,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByDDL" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwMarketDDL" resultType="java.lang.Long">
+    select count(*) from aww_market
+    <if test="_parameter != null">
+      <include refid="DDL_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByDDLSelective" parameterType="map">
+    update aww_market
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.chainId != null">
+        chain_id = #{record.chainId,jdbcType=BIGINT},
+      </if>
+      <if test="record.awwId != null">
+        aww_id = #{record.awwId,jdbcType=BIGINT},
+      </if>
+      <if test="record.awwName != null">
+        aww_name = #{record.awwName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owner != null">
+        owner = #{record.owner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rarity != null">
+        rarity = #{record.rarity,jdbcType=INTEGER},
+      </if>
+      <if test="record.sellPrice != null">
+        sell_price = #{record.sellPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stamina != null">
+        stamina = #{record.stamina,jdbcType=INTEGER},
+      </if>
+      <if test="record.usedStamina != null">
+        used_stamina = #{record.usedStamina,jdbcType=INTEGER},
+      </if>
+      <if test="record.winRateBonus != null">
+        win_rate_bonus = #{record.winRateBonus,jdbcType=INTEGER},
+      </if>
+      <if test="record.icon != null">
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_DDL_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByDDL" parameterType="map">
+    update aww_market
+    set id = #{record.id,jdbcType=BIGINT},
+      chain_id = #{record.chainId,jdbcType=BIGINT},
+      aww_id = #{record.awwId,jdbcType=BIGINT},
+      aww_name = #{record.awwName,jdbcType=VARCHAR},
+      owner = #{record.owner,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      rarity = #{record.rarity,jdbcType=INTEGER},
+      sell_price = #{record.sellPrice,jdbcType=DECIMAL},
+      stamina = #{record.stamina,jdbcType=INTEGER},
+      used_stamina = #{record.usedStamina,jdbcType=INTEGER},
+      win_rate_bonus = #{record.winRateBonus,jdbcType=INTEGER},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_DDL_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bixin.gameFi.aww.bean.DO.AwwMarket">
+    update aww_market
+    <set>
+      <if test="chainId != null">
+        chain_id = #{chainId,jdbcType=BIGINT},
+      </if>
+      <if test="awwId != null">
+        aww_id = #{awwId,jdbcType=BIGINT},
+      </if>
+      <if test="awwName != null">
+        aww_name = #{awwName,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="rarity != null">
+        rarity = #{rarity,jdbcType=INTEGER},
+      </if>
+      <if test="sellPrice != null">
+        sell_price = #{sellPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stamina != null">
+        stamina = #{stamina,jdbcType=INTEGER},
+      </if>
+      <if test="usedStamina != null">
+        used_stamina = #{usedStamina,jdbcType=INTEGER},
+      </if>
+      <if test="winRateBonus != null">
+        win_rate_bonus = #{winRateBonus,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bixin.gameFi.aww.bean.DO.AwwMarket">
+    update aww_market
+    set chain_id = #{chainId,jdbcType=BIGINT},
+      aww_id = #{awwId,jdbcType=BIGINT},
+      aww_name = #{awwName,jdbcType=VARCHAR},
+      owner = #{owner,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      rarity = #{rarity,jdbcType=INTEGER},
+      sell_price = #{sellPrice,jdbcType=DECIMAL},
+      stamina = #{stamina,jdbcType=INTEGER},
+      used_stamina = #{usedStamina,jdbcType=INTEGER},
+      win_rate_bonus = #{winRateBonus,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByPages" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    aww_market
+    <where>
+      <if test="startPrice != null">
+        AND sell_price &gt;=  #{startPrice}
+      </if>
+      <if test="endPrice != null">
+        AND sell_price &lt;=  #{endPrice}
+      </if>
+      <if test="owner != null">
+        AND owner = #{owner}
+      </if>
+      <if test="rarity != null">
+        AND rarity = #{rarity}
+      </if>
+      <if test="raritys != null">
+        and  rarity in
+        <foreach collection="raritys" item="item" separator="," open="(" close=")">
+           #{item}
+        </foreach>
+      </if>
+    </where>
+    ORDER BY
+    <if test="sort != null">
+      ${sort}
+    </if>
+    <if test="pageFrom != null and pageSize !=null">
+      limit #{pageFrom},#{pageSize}
+    </if>
+  </select>
+
+</mapper>

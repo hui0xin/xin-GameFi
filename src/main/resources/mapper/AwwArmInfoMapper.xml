@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bixin.gameFi.aww.core.mapper.AwwArmInfoMapper">
+  <resultMap id="BaseResultMap" type="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="arm_id" jdbcType="BIGINT" property="armId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="rarity" jdbcType="TINYINT" property="rarity" />
+    <result column="stamina" jdbcType="TINYINT" property="stamina" />
+    <result column="win_rate_bonus" jdbcType="TINYINT" property="winRateBonus" />
+    <result column="image_link" jdbcType="VARCHAR" property="imageLink" />
+    <result column="created" jdbcType="BIT" property="created" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+    <result column="image_data" jdbcType="LONGVARCHAR" property="imageData" />
+  </resultMap>
+  <sql id="DDL_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_DDL_Where_Clause">
+    <where>
+      <foreach collection="DDL.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, arm_id, name, rarity, stamina, win_rate_bonus, image_link, created, create_time, 
+    update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    image_data
+  </sql>
+  <select id="selectByDDLWithBLOBs" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwArmInfoDDL" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from aww_arm_info
+    <if test="_parameter != null">
+      <include refid="DDL_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByDDL" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwArmInfoDDL" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aww_arm_info
+    <if test="_parameter != null">
+      <include refid="DDL_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from aww_arm_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from aww_arm_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByDDL" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwArmInfoDDL">
+    delete from aww_arm_info
+    <if test="_parameter != null">
+      <include refid="DDL_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+    insert into aww_arm_info (id, arm_id, name, 
+      rarity, stamina, win_rate_bonus, 
+      image_link, created, create_time, 
+      update_time, image_data)
+    values (#{id,jdbcType=BIGINT}, #{armId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{rarity,jdbcType=TINYINT}, #{stamina,jdbcType=TINYINT}, #{winRateBonus,jdbcType=TINYINT},
+      #{imageLink,jdbcType=VARCHAR}, #{created,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{imageData,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+    insert into aww_arm_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="armId != null">
+        arm_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="rarity != null">
+        rarity,
+      </if>
+      <if test="stamina != null">
+        stamina,
+      </if>
+      <if test="winRateBonus != null">
+        win_rate_bonus,
+      </if>
+      <if test="imageLink != null">
+        image_link,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="imageData != null">
+        image_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="armId != null">
+        #{armId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rarity != null">
+        #{rarity,jdbcType=TINYINT},
+      </if>
+      <if test="stamina != null">
+        #{stamina,jdbcType=TINYINT},
+      </if>
+      <if test="winRateBonus != null">
+        #{winRateBonus,jdbcType=TINYINT},
+      </if>
+      <if test="imageLink != null">
+        #{imageLink,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="imageData != null">
+        #{imageData,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByDDL" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwArmInfoDDL" resultType="java.lang.Long">
+    select count(*) from aww_arm_info
+    <if test="_parameter != null">
+      <include refid="DDL_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByDDLSelective" parameterType="map">
+    update aww_arm_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.armId != null">
+        arm_id = #{record.armId,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rarity != null">
+        rarity = #{record.rarity,jdbcType=TINYINT},
+      </if>
+      <if test="record.stamina != null">
+        stamina = #{record.stamina,jdbcType=TINYINT},
+      </if>
+      <if test="record.winRateBonus != null">
+        win_rate_bonus = #{record.winRateBonus,jdbcType=TINYINT},
+      </if>
+      <if test="record.imageLink != null">
+        image_link = #{record.imageLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null">
+        created = #{record.created,jdbcType=BIT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.imageData != null">
+        image_data = #{record.imageData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_DDL_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByDDLWithBLOBs" parameterType="map">
+    update aww_arm_info
+    set id = #{record.id,jdbcType=BIGINT},
+      arm_id = #{record.armId,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      rarity = #{record.rarity,jdbcType=TINYINT},
+      stamina = #{record.stamina,jdbcType=TINYINT},
+      win_rate_bonus = #{record.winRateBonus,jdbcType=TINYINT},
+      image_link = #{record.imageLink,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=BIT},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=BIGINT},
+      image_data = #{record.imageData,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_DDL_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByDDL" parameterType="map">
+    update aww_arm_info
+    set id = #{record.id,jdbcType=BIGINT},
+      arm_id = #{record.armId,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      rarity = #{record.rarity,jdbcType=TINYINT},
+      stamina = #{record.stamina,jdbcType=TINYINT},
+      win_rate_bonus = #{record.winRateBonus,jdbcType=TINYINT},
+      image_link = #{record.imageLink,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=BIT},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_DDL_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+    update aww_arm_info
+    <set>
+      <if test="armId != null">
+        arm_id = #{armId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rarity != null">
+        rarity = #{rarity,jdbcType=TINYINT},
+      </if>
+      <if test="stamina != null">
+        stamina = #{stamina,jdbcType=TINYINT},
+      </if>
+      <if test="winRateBonus != null">
+        win_rate_bonus = #{winRateBonus,jdbcType=TINYINT},
+      </if>
+      <if test="imageLink != null">
+        image_link = #{imageLink,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="imageData != null">
+        image_data = #{imageData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+    update aww_arm_info
+    set arm_id = #{armId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      rarity = #{rarity,jdbcType=TINYINT},
+      stamina = #{stamina,jdbcType=TINYINT},
+      win_rate_bonus = #{winRateBonus,jdbcType=TINYINT},
+      image_link = #{imageLink,jdbcType=VARCHAR},
+      created = #{created,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      image_data = #{imageData,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+    update aww_arm_info
+    set arm_id = #{armId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      rarity = #{rarity,jdbcType=TINYINT},
+      stamina = #{stamina,jdbcType=TINYINT},
+      win_rate_bonus = #{winRateBonus,jdbcType=TINYINT},
+      image_link = #{imageLink,jdbcType=VARCHAR},
+      created = #{created,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
