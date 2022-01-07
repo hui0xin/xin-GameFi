@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bixin.gameFi.aww.core.mapper.AwwArmInfoMapper">
-  <resultMap id="BaseResultMap" type="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+<mapper namespace="com.xin.gameFi.aww.core.mapper.AwwArmInfoMapper">
+  <resultMap id="BaseResultMap" type="com.xin.gameFi.aww.bean.DO.AwwArmInfo">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="arm_id" jdbcType="BIGINT" property="armId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -13,7 +13,7 @@
     <result column="create_time" jdbcType="BIGINT" property="createTime" />
     <result column="update_time" jdbcType="BIGINT" property="updateTime" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xin.gameFi.aww.bean.DO.AwwArmInfo">
     <result column="image_data" jdbcType="LONGVARCHAR" property="imageData" />
   </resultMap>
   <sql id="DDL_Where_Clause">
@@ -81,7 +81,7 @@
   <sql id="Blob_Column_List">
     image_data
   </sql>
-  <select id="selectByDDLWithBLOBs" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwArmInfoDDL" resultMap="ResultMapWithBLOBs">
+  <select id="selectByDDLWithBLOBs" parameterType="com.xin.gameFi.aww.core.wrapDDL.AwwArmInfoDDL" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -97,7 +97,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByDDL" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwArmInfoDDL" resultMap="BaseResultMap">
+  <select id="selectByDDL" parameterType="com.xin.gameFi.aww.core.wrapDDL.AwwArmInfoDDL" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -123,13 +123,13 @@
     delete from aww_arm_info
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByDDL" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwArmInfoDDL">
+  <delete id="deleteByDDL" parameterType="com.xin.gameFi.aww.core.wrapDDL.AwwArmInfoDDL">
     delete from aww_arm_info
     <if test="_parameter != null">
       <include refid="DDL_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+  <insert id="insert" parameterType="com.xin.gameFi.aww.bean.DO.AwwArmInfo">
     insert into aww_arm_info (id, arm_id, name, 
       rarity, stamina, win_rate_bonus, 
       image_link, created, create_time, 
@@ -139,7 +139,7 @@
       #{imageLink,jdbcType=VARCHAR}, #{created,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=BIGINT}, #{imageData,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+  <insert id="insertSelective" parameterType="com.xin.gameFi.aww.bean.DO.AwwArmInfo">
     insert into aww_arm_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -212,7 +212,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByDDL" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwArmInfoDDL" resultType="java.lang.Long">
+  <select id="countByDDL" parameterType="com.xin.gameFi.aww.core.wrapDDL.AwwArmInfoDDL" resultType="java.lang.Long">
     select count(*) from aww_arm_info
     <if test="_parameter != null">
       <include refid="DDL_Where_Clause" />
@@ -292,7 +292,7 @@
       <include refid="Update_By_DDL_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.xin.gameFi.aww.bean.DO.AwwArmInfo">
     update aww_arm_info
     <set>
       <if test="armId != null">
@@ -328,7 +328,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xin.gameFi.aww.bean.DO.AwwArmInfo">
     update aww_arm_info
     set arm_id = #{armId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
@@ -342,7 +342,7 @@
       image_data = #{imageData,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bixin.gameFi.aww.bean.DO.AwwArmInfo">
+  <update id="updateByPrimaryKey" parameterType="com.xin.gameFi.aww.bean.DO.AwwArmInfo">
     update aww_arm_info
     set arm_id = #{armId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bixin.gameFi.aww.core.mapper.AwwMatchRecordsMapper">
-  <resultMap id="BaseResultMap" type="com.bixin.gameFi.aww.bean.DO.AwwMatchRecords">
+<mapper namespace="com.xin.gameFi.aww.core.mapper.AwwMatchRecordsMapper">
+  <resultMap id="BaseResultMap" type="com.xin.gameFi.aww.bean.DO.AwwMatchRecords">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="sell_address" jdbcType="VARCHAR" property="sellAddress" />
     <result column="buy_address" jdbcType="VARCHAR" property="buyAddress" />
@@ -76,7 +76,7 @@
     id, sell_address, buy_address, aww_id, icon, aww_name, price,
     fee, match_time, create_time, update_time
   </sql>
-  <select id="selectByDDL" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwMatchRecordsDDL" resultMap="BaseResultMap">
+  <select id="selectByDDL" parameterType="com.xin.gameFi.aww.core.wrapDDL.AwwMatchRecordsDDL" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -100,13 +100,13 @@
     delete from aww_match_records
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByDDL" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwMatchRecordsDDL">
+  <delete id="deleteByDDL" parameterType="com.xin.gameFi.aww.core.wrapDDL.AwwMatchRecordsDDL">
     delete from aww_match_records
     <if test="_parameter != null">
       <include refid="DDL_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.bixin.gameFi.aww.bean.DO.AwwMatchRecords">
+  <insert id="insert" parameterType="com.xin.gameFi.aww.bean.DO.AwwMatchRecords">
     insert into aww_match_records (id, sell_address, buy_address, 
       aww_id, icon,
      aww_name, price,
@@ -118,7 +118,7 @@
       #{fee,jdbcType=DECIMAL}, #{matchTime,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.bixin.gameFi.aww.bean.DO.AwwMatchRecords">
+  <insert id="insertSelective" parameterType="com.xin.gameFi.aww.bean.DO.AwwMatchRecords">
     insert into aww_match_records
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -197,7 +197,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByDDL" parameterType="com.bixin.gameFi.aww.core.wrapDDL.AwwMatchRecordsDDL" resultType="java.lang.Long">
+  <select id="countByDDL" parameterType="com.xin.gameFi.aww.core.wrapDDL.AwwMatchRecordsDDL" resultType="java.lang.Long">
     select count(*) from aww_match_records
     <if test="_parameter != null">
       <include refid="DDL_Where_Clause" />
@@ -261,7 +261,7 @@
       <include refid="Update_By_DDL_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bixin.gameFi.aww.bean.DO.AwwMatchRecords">
+  <update id="updateByPrimaryKeySelective" parameterType="com.xin.gameFi.aww.bean.DO.AwwMatchRecords">
     update aww_match_records
     <set>
       <if test="sellAddress != null">
@@ -297,7 +297,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bixin.gameFi.aww.bean.DO.AwwMatchRecords">
+  <update id="updateByPrimaryKey" parameterType="com.xin.gameFi.aww.bean.DO.AwwMatchRecords">
     update aww_match_records
     set sell_address = #{sellAddress,jdbcType=VARCHAR},
       buy_address = #{buyAddress,jdbcType=VARCHAR},

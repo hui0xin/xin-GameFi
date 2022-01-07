@@ -1,0 +1,15 @@
+### Intellij ###
+*.iml
+.idea/
+out/
+.DS_Store
+application-prod.yaml
+
+target/
+
+### Linux ###
+tmp/
+*.tmp
+*.bak
+*.swp
+/bin/

@@ -44,7 +44,7 @@ spring:
 # MyBatis
 mybatis:
   # 搜索指定包别名
-  type-aliases-package: com.bixin.gameFi.aww.bean
+  type-aliases-package: com.xin.gameFi.aww.bean
   # 加载全局的配置文件
   config_location: classpath:mybatis/mybatis-config.xml
   mapper_locations: classpath:mapper/*.xml
